@@ -1,6 +1,7 @@
 package com.tomn.java.game.engine;
 
 import com.tomn.java.game.engine.renderer.SpriteRenderer;
+import com.tomn.java.game.engine.util.AssetPool;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -33,6 +34,12 @@ public class LevelEditorScene extends Scene {
                 this.addGameObjectToScene(go);
             }
         }
+
+        loadResources();
+    }
+
+    private void loadResources() {
+        AssetPool.getShader("assets/shaders/default.glsl");
     }
 
     @Override
