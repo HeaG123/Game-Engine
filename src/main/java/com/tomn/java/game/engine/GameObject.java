@@ -1,5 +1,7 @@
 package com.tomn.java.game.engine;
 
+import com.tomn.java.game.engine.renderer.SpriteRenderer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class GameObject {
         }
     }
 
-    public void addComponent(Component c) {
+    public void addComponent(SpriteRenderer c) {
         this.components.add(c);
         c.gameObject = this;
     }
