@@ -1,5 +1,6 @@
 package com.tomn.java.game.engine;
 
+import com.tomn.java.game.engine.go.GameObject;
 import com.tomn.java.game.engine.renderer.Renderer;
 
 import java.util.ArrayList;

@@ -1,8 +1,9 @@
 package com.tomn.java.game.engine.renderer;
 
-import com.tomn.java.game.engine.GameObject;
+import com.tomn.java.game.engine.go.GameObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Renderer {
@@ -15,17 +16,17 @@ public class Renderer {
 
     public void add(GameObject go) {
         SpriteRenderer spr = go.getComponent(SpriteRenderer.class);
-        if(spr != null) {
+        if (spr != null) {
             add(spr);
         }
     }
 
     private void add(SpriteRenderer sprite) {
         boolean added = false;
-        for(RenderBatch batch : batches) {
-            if(batch.hasRoom()) {
+        for (RenderBatch batch : batches) {
+            if (batch.hasRoom() && batch.zIndex() == sprite.gameObject.zIndex()) {
                 Texture tex = sprite.getTexture();
-                if(tex == null || (batch.hasTexture(tex) || batch.hasTextureRoom())) {
+                if (tex == null || (batch.hasTexture(tex) || batch.hasTextureRoom())) {
                     batch.addSprite(sprite);
                     added = true;
                     break;
@@ -33,11 +34,12 @@ public class Renderer {
             }
         }
 
-        if(!added) {
-            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
+        if (!added) {
+            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE, sprite.gameObject.zIndex());
             newBatch.start();
             batches.add(newBatch);
             newBatch.addSprite(sprite);
+            Collections.sort(batches);
         }
     }
 
